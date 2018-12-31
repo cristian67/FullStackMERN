@@ -1,5 +1,6 @@
 const express = require('express');
-const fileUpload = require('express-fileupload');
+//const multer = require('multer');
+
 const app = express();
 
 //Modelo Usuario 
@@ -9,41 +10,68 @@ const Producto = require('../models/producto');
 //Modelo Categoria
 const Categoria = require('../models/categoria');
 
+
 //Filesystem para borrar sin problemas
 const fs = require('fs');
 //Path para manejar las rutas
 const path = require('path');
 
-app.use(fileUpload({
-	limits: { 
-		fileSize: 1 * 1024 * 1024,
-		fields: 50,
-		files: 1,
-		parts: 51,
-	}
-}));
 
 
-app.post('/up/noda', function(req, res) {
+/*
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, 'uploads/');
+    },
+    filename: function(req, file, cb) {
+      cb(null, new Date().toISOString() + file.originalname);
+    }
+  });
 
-    var file= req.file;
-    var files = req.files;
-    
-    console.log(file);
-    console.log(files);
-   
+const fileFilter = (req, file, cb) => {
+    // reject a file
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  };
 
-    res.send("File Uploaded");
-
-
+const upload = multer({
+    storage: storage,
+    limits: {
+      fileSize: 1024 * 1024 * 5
+    },
+    fileFilter: fileFilter
   });
 
 
-app.put('/upload/subir/:tipo/:id', function(req, res) {
+app.post('/ctmql', upload.single('avatar'), (req, res) => {
+    if (!req.file) {
+      console.log("No file received");
+      return res.send({
+        success: false
+      });
+  
+    } else {
+      console.log('file received');
+      return res.send({
+        success: true
+      })
+    }
+  });
+*/
+
+
+
+
+
+app.put('/upload/file/:tipo/:id', function(req, res) {
 
     let tipo = req.params.tipo;
     let id = req.params.id;
     
+
 
     //ERROR
     if (Object.keys(req.files).length === 0) {
@@ -67,11 +95,8 @@ app.put('/upload/subir/:tipo/:id', function(req, res) {
         });
     }
 
-
-   
-    //VALIDAR EXTENSIONES
-    let archivo = req.files.archivo;
-
+     //VALIDAR EXTENSIONES
+     let archivo = req.files.image;
     //Obtener el nombre del Archivo
     let nombreCortado = archivo.name.split('.');
     //obtener ultima posicion
@@ -94,6 +119,7 @@ app.put('/upload/subir/:tipo/:id', function(req, res) {
 
 
     //SUBIR ARCHIVO
+
     archivo.mv(`client/public/upload/${tipo}/${nombreArchivo}`, (err) => {
         if (err) {
             return res.status(500).json({

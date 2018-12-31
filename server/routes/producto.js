@@ -1,5 +1,4 @@
 const express = require('express');
-const fileUpload = require('express-fileupload');
 const app = express();
 
 const Producto = require('../models/producto');
@@ -12,8 +11,7 @@ const fs = require('fs');
 //Path para manejar las rutas
 const path = require('path');
 
-// default options
-app.use(fileUpload());
+
 
 
 //===============================
@@ -109,9 +107,8 @@ app.get("/producto/:id", (req, res) => {
 //===============================
 //  Crear producto
 //==============================
-app.post("/crear/:tipo", verificaToken, (req, res) => {
+app.post("/crear/producto", verificaToken, (req, res) => {
     
-    let tipo = req.params.tipo;
     let body = req.body;
 
      //ERROR
@@ -123,17 +120,7 @@ app.post("/crear/:tipo", verificaToken, (req, res) => {
             }
         })
     }
-
-     //VALIDAR EXTENSIONES
-     let tiposValidos = ['producto'];
-     if (tiposValidos.indexOf(tipo) < 0) {
-         return res.status(400).json({
-             ok: false,
-             err: {
-                 messsage: "tipos validos:" + tiposValidos.join(', ')
-             }
-         });
-     }
+    
 
     //VALIDAR EXTENSIONES
     let archivo = req.files.image;
@@ -160,7 +147,7 @@ app.post("/crear/:tipo", verificaToken, (req, res) => {
 
 
     //SUBIR ARCHIVO Y GUARDAR
-    archivo.mv(`client/public/upload/${tipo}/${nombreArchivo}`, (err) => {
+    archivo.mv(`client/public/upload/producto/${nombreArchivo}`, (err) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -168,7 +155,7 @@ app.post("/crear/:tipo", verificaToken, (req, res) => {
             });
         }
 
-         //Validaciones
+        //Validaciones
         let producto = new Producto({
             usuario: req.usuario._id,
             nombre: body.nombre,

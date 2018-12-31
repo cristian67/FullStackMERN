@@ -11,11 +11,10 @@ const bodyParser = require('body-parser');
 
 
 
-// parse application/x-www-form-urlencoded
-//app.use(bodyParser.urlencoded({ extended: false, keepExtensions:true }))
-
 // parse application/json
-//app.use(bodyParser.json());
+app.use(bodyParser.json()); 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true}))
 
 //Cors para ser consumido sin problemas :)
 app.use(cors());
@@ -25,6 +24,15 @@ mongoose.connect(process.env.URLDB, (err, res) => {
     if (err) throw err;
     console.log("Conectado a BDD")
 });
+
+
+
+
+const fileUpload = require('express-fileupload');
+// default options
+app.use(fileUpload());
+
+
 
 // Config global de rutas
 app.use(require('./server/routes/index'));

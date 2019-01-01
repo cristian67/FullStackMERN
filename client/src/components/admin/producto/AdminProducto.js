@@ -53,7 +53,7 @@ class AdminProducto extends Component {
  
                     <ListadoProducto 
                          productos ={this.props.productos}
-                         //borrarPost={this.props.borrarPost}
+                         borrarProducto={this.props.borrarProducto}
                     />
                </div>
 

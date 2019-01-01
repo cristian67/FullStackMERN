@@ -13,7 +13,7 @@ class ListadoProducto extends Component {
                          <Producto
                               key={producto}
                               info={this.props.productos[producto]}
-                              //borrarPost={this.props.borrarPost}
+                              borrarProducto={this.props.borrarProducto}                              
                          />
                     ))}
                </React.Fragment>

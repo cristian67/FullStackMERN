@@ -3,6 +3,9 @@ const express = require('express');
 
 const app = express();
 
+let { verificaToken } = require('../../server/middleware/autenticacion');
+
+
 //Modelo Usuario 
 const Usuario = require('../models/usuario');
 //Modelo Producto
@@ -18,60 +21,10 @@ const path = require('path');
 
 
 
-/*
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-      cb(null, 'uploads/');
-    },
-    filename: function(req, file, cb) {
-      cb(null, new Date().toISOString() + file.originalname);
-    }
-  });
-
-const fileFilter = (req, file, cb) => {
-    // reject a file
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-      cb(null, true);
-    } else {
-      cb(null, false);
-    }
-  };
-
-const upload = multer({
-    storage: storage,
-    limits: {
-      fileSize: 1024 * 1024 * 5
-    },
-    fileFilter: fileFilter
-  });
-
-
-app.post('/ctmql', upload.single('avatar'), (req, res) => {
-    if (!req.file) {
-      console.log("No file received");
-      return res.send({
-        success: false
-      });
-  
-    } else {
-      console.log('file received');
-      return res.send({
-        success: true
-      })
-    }
-  });
-*/
-
-
-
-
-
-app.put('/upload/file/:tipo/:id', function(req, res) {
+app.put('/upload/file/:tipo/:id', verificaToken,  function(req, res) {
 
     let tipo = req.params.tipo;
     let id = req.params.id;
-    
-
 
     //ERROR
     if (Object.keys(req.files).length === 0) {

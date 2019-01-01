@@ -12,8 +12,6 @@ const fs = require('fs');
 const path = require('path');
 
 
-
-
 //===============================
 //  Obtener Productos: Todos
 //==============================

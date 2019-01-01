@@ -3,7 +3,6 @@ import NavegationAdmin from '../navegation/NavegationAdmin';
 import OptionSelect from '../producto/OptionSelect';
 import { editarProducto, editarImagenProducto } from '../services/postData';
 
-
 //Token headers
 const config = {headers: { 
     'Content-Type': 'application/json',
@@ -12,7 +11,6 @@ const config = {headers: {
 
 class EditarProducto extends Component {
     
-
     constructor(props){
         super(props);
         this.state = {
@@ -25,7 +23,6 @@ class EditarProducto extends Component {
         this.precioRef    = React.createRef();
         this.categoriaRef = React.createRef();
     }
-
 
     //===============================
     //  Editar parametros
@@ -48,7 +45,7 @@ class EditarProducto extends Component {
    }
 
     //===============================
-    //  Subir archivo de imagen
+    //  Actualizar State file
     //===============================
     fileSelectedHandler = event => {
         
@@ -57,12 +54,14 @@ class EditarProducto extends Component {
         });
     }
 
+    //===============================
+    //  Subir archivo de imagen
+    //===============================
     uploadFile = () => {
 
     const id = this.props.producto._id;
     if(this.state.selectedFile && this.state.selectedFile.name && id) 
     {
-        
         const fd = new FormData();
         fd.append('image', this.state.selectedFile);
         
@@ -70,7 +69,7 @@ class EditarProducto extends Component {
         editarImagenProducto(fd, config, id);
 
         } else {
-            console.log("no seleccionaste ninguna imagen");  
+            console.log("No seleccionaste ninguna imagen");  
         }
     }
 
@@ -78,7 +77,6 @@ class EditarProducto extends Component {
     render() {
         
         if(!this.props.producto) {return null;}
-
         const {categoria, img, nombre, precioUni} = this.props.producto;
 
         return (
@@ -115,12 +113,10 @@ class EditarProducto extends Component {
                                                 ))}   
                                     </select>
                             </div>
-                    
                            <div className="center-align">
                                <button type="submit" className="btn light-blue darken-5 btn-large">Actualizar</button>
                            </div>
                        </form>
-
                    </div>
 
                    <div className="row">

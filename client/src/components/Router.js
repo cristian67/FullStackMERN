@@ -22,8 +22,11 @@ import FormularioProducto from './admin/producto/FormularioProducto';
 import EditarProducto from './admin/producto/EditarProducto';
 
 
-
-
+//Token headers
+const config = {headers: { 
+     'Content-Type': 'application/json',
+     'token': localStorage.token 
+ }}
 
 class Router extends Component {
      
@@ -83,6 +86,18 @@ class Router extends Component {
                })
      }
 
+
+     //================================
+     // Borrar Producto
+     //================================
+     borrarProducto = async (id) => {
+          
+          const url = `/api/producto/${id}`;
+          await axios.delete(url, config)
+                     .then(res => {console.log(res);})
+                     .catch(err=>{console.log("No tienes permiso")})
+
+     }
 
      render() {
           /*cargando pagina animacion*/
@@ -229,6 +244,7 @@ class Router extends Component {
                                                        <div className="animated fadeIn delay-0.4s">
                                                             <AdminProducto 
                                                                  productos = {this.state.productos}
+                                                                 borrarProducto = {this.borrarProducto}
                                                             />
                                                        </div>
                                                   </React.Fragment>
@@ -279,8 +295,6 @@ class Router extends Component {
                                                   </React.Fragment>
                                              );
                                         }} />
-
-
 
 
                               </Switch>

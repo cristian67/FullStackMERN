@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 //===============================
 //  Login
 //===============================
@@ -11,12 +12,13 @@ return await axios.post(url, datosLogin)
              })   
 }         
 
+
 //===============================
 //  Crear Producto
 //===============================
 export async function postCrearProducto(fd, config){
 
-  const url = '/api/producto';
+  const url = '/api/crear/producto';
   
   await axios.post(url, fd, config)
   .then(  res => {
@@ -28,6 +30,7 @@ export async function postCrearProducto(fd, config){
   .catch( err => {console.log('No tienes permisos');
   })   
  }         
+
 
 //===============================
 //  Editar Producto
@@ -44,12 +47,13 @@ export async function editarProducto(datosProducto, config, id){
   })   
  }    
 
+
 //===============================
 //  Editar Imagen
 //===============================
 export async function editarImagenProducto(fd, config, id){
 
-  const url = `/api/upload/producto/${id}`;
+  const url = `/api/upload/file/producto/${id}`;
   
   await axios.put(url, fd, config)
   .then(  res => {

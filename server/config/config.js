@@ -15,6 +15,10 @@ process.env.CADUCIDAD_TOKEN = '48h';
 //=======================================================================
 process.env.SEED = process.env.SEED || 'este-es-el-seed-desarrollo';
 
+
+
+
+
 //=============
 // Base de Dato
 //=============

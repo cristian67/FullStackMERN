@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
 
 
 //===============================
@@ -23,12 +25,16 @@ export async function postCrearProducto(fd, config){
   await axios.post(url, fd, config)
   .then(  res => {
       console.log(res);
+      Swal(
+        'Producto creado!',
+        'Se ha agregado el registro!',
+        'success'
+      )
       this.setState({
-          producto: res.data.producto
-      });
+        producto: res.data.producto
+    });
   })
-  .catch( err => {console.log('No tienes permisos');
-  })   
+  .catch(err => { Swal('No seleccionaste ninguna imagen '); console.log(err)})   
  }         
 
 
@@ -41,15 +47,31 @@ export async function editarProducto(datosProducto, config, id){
   
   await axios.put(url, datosProducto, config)
   .then(  res => {
+    Swal({
+        title: 'Estas seguro?',
+        text: "Se va a actualizar el registro",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, actualizar!'
+      }).then((result) => {
+        if (result.value) {
+          Swal(
+            'Actualizado',
+            'El producto ha sido actualizado.',
+            'success'
+          )
+        }
+      })
       console.log(res);
   })
-  .catch( err => {console.log('No tienes permisos');
-  })   
+  .catch( err => { Swal('ERROR DE PERMISOS'); console.log(err)})   
  }    
 
 
 //===============================
-//  Editar Imagen
+//  Editar Imagen Producto
 //===============================
 export async function editarImagenProducto(fd, config, id){
 
@@ -57,14 +79,112 @@ export async function editarImagenProducto(fd, config, id){
   
   await axios.put(url, fd, config)
   .then(  res => {
+    Swal({
+        title: 'Estas seguro?',
+        text: "Se va a actualizar la imagen del registro",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, actualizar!'
+      }).then((result) => {
+        if (result.value) {
+          Swal(
+            'Actualizado',
+            'El producto ha actualizado su imagen.',
+            'success'
+          )
+        }
+      })
       console.log(res);
   })
-  .catch( err => {console.log('No tienes permisos');
-  })   
+  .catch( err => { Swal('No seleccionaste ninguna imagen'); console.log(err)}) 
  }    
 
 
+//===============================
+//  Crear Categoria
+//===============================
+export async function postCrearCategoria(fd, config){
+
+    const url = '/api/crear/categoria';
+    
+    await axios.post(url, fd, config)
+    .then(  res => {
+        Swal(
+          'Categoria creada!',
+          'Se ha agregado el registro!',
+          'success'
+        )
+      console.log(res);
+
+    })
+    .catch(err => { Swal('Aqui viene el error ql'); console.log(err)})   
+   
+}    
+
+//===============================
+//  Editar Categoria
+//===============================
+export async function editarCategoria(datosCategoria, config, id){
+
+    const url = `/api/categoria/${id}`;
+    
+    await axios.put(url, datosCategoria, config)
+    .then(  res => {
+      Swal({
+          title: 'Estas seguro?',
+          text: "Se va a actualizar el registro",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, actualizar!'
+        }).then((result) => {
+          if (result.value) {
+            Swal(
+              'Actualizado',
+              'La categoria ha sido actualizada.',
+              'success'
+            )
+          }
+        })
+        console.log(res);
+    })
+    .catch( err => { Swal('ERROR DE PERMISOS'); console.log(err)})   
+   }    
 
 
+//===============================
+//  Editar Imagen Categoria
+//===============================
+export async function editarImagenCategoria(fd, config, id){
+
+    const url = `/api/upload/file/categoria/${id}`;
+    
+    await axios.put(url, fd, config)
+    .then(  res => {
+      Swal({
+          title: 'Estas seguro?',
+          text: "Se va a actualizar la imagen del registro",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, actualizar!'
+        }).then((result) => {
+          if (result.value) {
+            Swal(
+              'Actualizado',
+              'El producto ha actualizado su imagen.',
+              'success'
+            )
+          }
+        })
+        console.log(res);
+    })
+    .catch( err => { Swal('No seleccionaste ninguna imagen'); console.log(err)}) 
+   }    
+  
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 /*Shared*/
 import '../css/cargando.css';
@@ -14,12 +15,20 @@ import Home from './Home';
 import Contacto from './contacto/contacto';
 
 
-/*Componentes privados*/
+/*Componentes privados: Login*/
 import TestLogin from './admin/login/TestLogin'; 
-import AdminCategoria from './admin/categoria/AdminCategoria';
+
+/*Componentes privados: Producto*/
 import AdminProducto from  './admin/producto/AdminProducto';
 import FormularioProducto from './admin/producto/FormularioProducto';
 import EditarProducto from './admin/producto/EditarProducto';
+
+/*Componentes privados: Categoria*/
+import AdminCategoria from './admin/categoria/AdminCategoria';
+import FormularioCategoria from './admin/categoria/FormularioCategoria';
+import EditarCategoria from  './admin/categoria/EditarCategoria';
+
+
 
 
 //Token headers
@@ -93,6 +102,18 @@ class Router extends Component {
      borrarProducto = async (id) => {
           
           const url = `/api/producto/${id}`;
+          await axios.delete(url, config)
+                     .then(res => {console.log(res);})
+                     .catch(err=>{console.log("No tienes permiso")})
+
+     }
+
+     //================================
+     // Borrar Producto
+     //================================
+     borrarCategoria = async (id) => {
+          
+          const url = `/api/categoria/${id}`;
           await axios.delete(url, config)
                      .then(res => {console.log(res);})
                      .catch(err=>{console.log("No tienes permiso")})
@@ -237,7 +258,11 @@ class Router extends Component {
                                         }} />
                
                                            
-                                         {/* Producto ADMIN acceso al home de productos */}
+
+                                         {/*                PRODUCTOS 
+                                             Producto ADMIN acceso al home de productos 
+                                             
+                                        */}
                                          <Route exact  path="/admin/producto" render={()=>{
                                              return(
                                                   <React.Fragment>
@@ -284,17 +309,53 @@ class Router extends Component {
                                         />
 
 
+                                        {/*                CATEGORIAS 
+                                             Producto ADMIN acceso al home de productos 
+                                             
+                                        */}
                                         <Route exact  path="/admin/categoria" render={()=>{
                                              return(
                                                   <React.Fragment>
                                                        <div className="animated fadeIn delay-0.4s">
                                                             <AdminCategoria  
-                                                                 productos = {this.state.productos}
+                                                                 categorias = {this.state.categorias}
+                                                                 borrarCategoria = {this.borrarCategoria}
                                                             />
                                                        </div>
                                                   </React.Fragment>
                                              );
                                         }} />
+
+                                        {/* Producto ADMIN Crear */}
+                                        <Route exact path="/admin/categoria/crear" render={ () => {
+                                            return(
+                                                <FormularioCategoria
+                                                />
+                                            )
+                                        }} />
+
+                                        {/* Producto ADMIN Actualizar */}
+                                        <Route exact path="/admin/categoria/editar/:categoriaId" render={ (props) => {
+                                             
+                                             let idCategoria = props.location.pathname.replace('/admin/categoria/editar/', '');
+                                          
+                                             const categorias = this.state.categorias;
+                                             
+                                             let filtro
+                                             filtro = categorias.filter(    categoria => (
+                                                             categoria._id == idCategoria
+                                             ))
+                                                                
+                                                            
+
+                                             return(
+                                                  <EditarCategoria 
+                                                       categoria = {filtro[0]}
+                                                       categorias = {this.state.categorias}
+                                                  />
+                                             );
+                                        }}
+                                        />
 
 
                               </Switch>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Redirect ,  withRouter} from 'react-router-dom';
+import {Redirect ,  withRouter, Link} from 'react-router-dom';
 import NavegationAdmin from '../navegation/NavegationAdmin';
+import ListadoCategoria from './ListadoCategoria';
 
 class AdminCategoria extends Component {
     constructor(props) {
@@ -43,8 +44,20 @@ class AdminCategoria extends Component {
         return(
             <React.Fragment>
                 <NavegationAdmin />
-                <div> Esto son las Categorias .... </div>
+                <div>Products pagina q se ve al Logearse </div>
                 <button type="button" onClick={this.logout}>Logout</button>
+
+                <div className="col s12 md8 lg8 center-align">
+                    <h2 className="text-center">Categoria</h2>
+                    <Link to={`/admin/categoria/crear`} className="btn waves-effect waves-light btn-large"> Crear </Link>
+
+                    <ListadoCategoria
+                         categorias ={this.props.categorias}
+                         borrarCategoria={this.props.borrarCategoria}
+                    />
+
+               </div>
+
             </React.Fragment>
         )
     }

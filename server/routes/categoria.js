@@ -6,6 +6,7 @@ const Categoria = require('../models/categoria');
 let { verificaToken, verificaAdmin_Role } = require('../../server/middleware/autenticacion');
 
 
+
 //===============================
 //Mostrar las categorias (Todas)
 //==============================
@@ -69,17 +70,63 @@ app.get('/categoria/:id', (req, res) => {
 //==========================
 //Crear una categoria
 //==========================
-app.post('/categoria', verificaToken, (req, res) => {
+app.post('/crear/categoria', verificaToken, (req, res) => {
 
     let body = req.body;
 
-    let categoria = new Categoria({
-        descripcion: body.descripcion,
-        usuario: req.usuario._id
-    });
+     //ERROR
+     if (Object.keys(req.files).length == 0) {
+        return res.status(400).json({
+            ok: false,
+            err: {
+                messsage: "No se a encontrado archivo"
+            }
+        })
+    }
 
-    //Guardad
-    categoria.save((err, categoriaDB) => {
+     //VALIDAR EXTENSIONES
+     let archivo = req.files.image;
+
+     //Obtener el nombre del Archivo
+     let nombreCortado = archivo.name.split('.');
+     //obtener ultima posicion
+     let extensionArchivo = nombreCortado[nombreCortado.length - 1];
+  
+     let extencionesValindas = ['png', 'jpg', 'gif', 'jpeg', 'JPG', 'PNG'];
+      
+     if (extencionesValindas.indexOf(extensionArchivo) < 0) {
+         return res.status(400).json({
+             ok: false,
+             err: {
+                 messsage: "Extensiones permitidas:" + extencionesValindas.join(', '),
+                 ext: extensionArchivo
+             }
+         });
+     }
+
+
+    //CAMBIAR NOMBRE ARCHIVO
+    let nombreArchivo = `${nombreCortado[0]}-${new Date().getSeconds()}-${new Date().getMilliseconds()}.${extensionArchivo}`;
+    
+
+    //SUBIR ARCHIVO Y GUARDAR
+    archivo.mv(`client/public/upload/categoria/${nombreArchivo}`, (err) => {
+        if (err) {
+            return res.status(500).json({
+                ok: false,
+                err
+            });
+        }
+
+        let categoria = new Categoria({
+            descripcion: body.descripcion,
+            usuario: req.usuario._id,
+            img:nombreArchivo
+        });
+
+
+        //Guardad
+        categoria.save((err, categoriaDB) => {
         //Error Servicio de base de datos
         if (err) {
             return res.status(500).json({
@@ -99,10 +146,12 @@ app.post('/categoria', verificaToken, (req, res) => {
         //Respuesta correcta
         res.json({
             ok: true,
-            categoria: categoriaDB
+            categoria: categoriaDB,
+            img: nombreArchivo
+
         });
     });
-
+    });
 });
 
 

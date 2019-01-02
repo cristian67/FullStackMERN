@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import NavegationAdmin from '../navegation/NavegationAdmin';
 import OptionSelect from '../producto/OptionSelect';
 import { editarProducto, editarImagenProducto } from '../services/postData';
+import Swal from 'sweetalert2';
+
 
 //Token headers
 const config = {headers: { 
@@ -24,6 +26,7 @@ class EditarProducto extends Component {
         this.categoriaRef = React.createRef();
     }
 
+
     //===============================
     //  Editar parametros
     //===============================
@@ -44,6 +47,7 @@ class EditarProducto extends Component {
         
    }
 
+   
     //===============================
     //  Actualizar State file
     //===============================
@@ -53,6 +57,7 @@ class EditarProducto extends Component {
            selectedFile: event.target.files[0]
         });
     }
+
 
     //===============================
     //  Subir archivo de imagen
@@ -69,6 +74,7 @@ class EditarProducto extends Component {
         editarImagenProducto(fd, config, id);
 
         } else {
+            Swal('No seleccionaste ninguna imagen');
             console.log("No seleccionaste ninguna imagen");  
         }
     }

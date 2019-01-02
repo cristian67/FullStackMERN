@@ -3,6 +3,8 @@ import {Redirect} from 'react-router-dom';
 import {postCrearProducto} from '../services/postData';
 import NavegationAdmin from '../navegation/NavegationAdmin';
 import OptionSelect from '../producto/OptionSelect';
+import Swal from 'sweetalert2';
+
 
 
 class FormularioProducto extends Component {
@@ -42,10 +44,10 @@ class FormularioProducto extends Component {
           
         if(this.state.selectedFile && this.state.selectedFile.name)    
           {  
-
             postCrearProducto(fd,config);
             
         } else {
+            Swal('No seleccionaste ninguna imagen')
                 console.log("No hay imagen cargada");
           }
           

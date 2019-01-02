@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 
 class Producto extends Component {
 
@@ -7,7 +9,25 @@ class Producto extends Component {
 
           const {_id} = this.props.info;
 
-          this.props.borrarProducto(_id);
+          Swal({
+               title: 'Estas seguro?',
+               text: "El registro se borrará ... ",
+               type: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes, delete it!'
+             }).then((result) => {
+               if (result.value) {
+                 this.props.borrarProducto(_id);
+                 Swal(
+                   'Eliminado!',
+                   'El registro se ha borrado',
+                   'exito'
+                 )
+               }
+             })
+
           
      }
 

@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 
 const Categoria = require('../models/categoria');
+const Producto = require('../models/producto');
+
 
 let { verificaToken, verificaAdmin_Role } = require('../../server/middleware/autenticacion');
 
@@ -10,19 +12,18 @@ let { verificaToken, verificaAdmin_Role } = require('../../server/middleware/aut
 //===============================
 //Mostrar las categorias (Todas)
 //==============================
-app.get('/categoria', (req, res) => {
+app.get('/categoria', (req, res, next) => {
 
-    Categoria.find({})
-        .sort('descripcion')
-        .exec((err, categoriaDB) => {
-            //Error Servicio de base de datos
-            if (err) {
-                return res.status(500).json({
-                    ok: false,
-                    err
-                });
-            }
-
+    Categoria.find()
+            .sort('descripcion')
+            .exec((err, categoriaDB) => {
+                //Error Servicio de base de datos
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        err
+                    });
+                }
             //Respuesta correcta
             res.json({
                 ok: true,
@@ -202,30 +203,52 @@ app.delete('/categoria/:id', verificaToken, verificaAdmin_Role, (req, res) => {
 
     let id = req.params.id;
 
-    Categoria.findByIdAndRemove(id, (err, categoriaDelete) => {
-        //Error Servicio de base de datos
-        if (err) {
-            return res.status(500).json({
-                ok: false,
-                err
-            });
-        }
-        // Error si no existe categoria
-        if (!categoriaDelete) {
-            return res.status(400).json({
-                ok: false,
-                err: {
-                    message: 'el id no existe'
-                }
-            });
-        }
-        //Respuesta borrado
-        res.json({
-            ok: true,
-            message: 'categoria borrada'
-        });
+    Producto.find({ categoria: id}, (err) => {
 
-    })
+                if (err) {
+                    return res.status(400).json({
+                        ok: false,
+                        err
+                    });
+                }
+
+                Producto.remove({ categoria: id }, (err) => {
+                    if (err) {
+                        return res.status(400).json({
+                            ok: false,
+                            err
+                        });
+                    }
+
+                Categoria.findByIdAndRemove(id, (err, categoriaDelete) => {        
+                        //Error Servicio de base de datos
+                        if (err) {
+                            return res.status(500).json({
+                                ok: false,
+                                err
+                            });
+                        }
+                
+                        // Error si no existe categoria
+                        if (!categoriaDelete) {
+                            return res.status(400).json({
+                                ok: false,
+                                err: {
+                                    message: 'el id no existe'
+                                }
+                            });
+                        }
+                
+                        //Respuesta borrado
+                        res.json({
+                            ok: true,
+                            message: 'categoria y sus productos borrado'
+                        });
+                
+                    });
+                });
+        });
+    
 });
 
 

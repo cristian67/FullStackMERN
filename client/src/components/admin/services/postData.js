@@ -29,10 +29,7 @@ export async function postCrearProducto(fd, config){
         'Producto creado!',
         'Se ha agregado el registro!',
         'success'
-      )
-      this.setState({
-        producto: res.data.producto
-    });
+      ) 
   })
   .catch(err => { Swal('No seleccionaste ninguna imagen '); console.log(err)})   
  }         

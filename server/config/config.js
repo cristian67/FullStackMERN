@@ -22,12 +22,15 @@ process.env.SEED = process.env.SEED || 'este-es-el-seed-desarrollo';
 //=============
 // Base de Dato
 //=============
+
 let urlDB;
-if (process.env.NODE_ENV === 'dev') {
+/*if (process.env.NODE_ENV === 'dev') {
     urlDB = 'mongodb://localhost:27017/Lalymania';
 } else {
     urlDB = process.env.MONGO_URI;
 }
+*/
+urlDB = '';
 process.env.URLDB = urlDB;
 
 //==================

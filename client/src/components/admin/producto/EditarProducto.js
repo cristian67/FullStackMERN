@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import NavegationAdmin from '../navegation/NavegationAdmin';
 import OptionSelect from '../producto/OptionSelect';
 import { editarProducto, editarImagenProducto } from '../services/postData';
+import {Redirect} from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 
@@ -95,7 +96,7 @@ class EditarProducto extends Component {
                    <h4 className="center-align">Editar Producto</h4>
                </div>
 
-               <div className="card-panel">
+               <div className="card-panel #212121 grey darken-4">
                        <form onSubmit={this.editarProducto}>
                             <div className="input-field col s12">
                                <span htmlFor="nombre">Nombre del producto: </span>
@@ -130,7 +131,7 @@ class EditarProducto extends Component {
                         <h4 className="center-align">Cambiar la imagen</h4>
                    </div>
 
-                   <div className="card-panel center-align">
+                   <div className="card-panel #212121 grey darken-4 center-align">
                         <img src={`/upload/producto/${img}`} alt={nombre} height="150" width="250"></img>
                         <hr></hr>
                             <div className="col s12">

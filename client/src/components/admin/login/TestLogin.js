@@ -69,21 +69,20 @@ class TestLogin extends Component {
         return(
             <div className="container">
                 <div className="row">
-                <div className="card-panel">
+                <div className="card-panel #00e5ff cyan accent-3">
                     <h4 className="center-align">Login de Usuario</h4>
                 </div>
-                    <div className="card-panel">
-
+                    <div className="card-panel #212121 grey darken-4">
                         <form onSubmit={this.login}>
                             <div className="row">
                                 <div className="input-field col s12">
-                                    <input ref = {this.emailRef} id="email" type="email" className="validate"/>
+                                    <input ref = {this.emailRef} id="email" type="email" className="loginText" className="validate"/>
                                     <label htmlFor="email">Email</label>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="input-field col s12">
-                                    <input ref={this.passRef} type="password" className="validate" />
+                                    <input ref={this.passRef} type="password" className="loginText" className="validate" />
                                     <label htmlFor="password">Password</label>
                                 </div>
                             </div>

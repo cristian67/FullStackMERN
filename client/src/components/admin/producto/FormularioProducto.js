@@ -71,12 +71,11 @@ class FormularioProducto extends Component {
                <p></p>
                <div className="container">
                <div className="row">
-               <div className="card-panel">
+               <div className="card-panel #00e5ff cyan accent-3">
                    <h4 className="center-align">Crear Productos</h4>
                </div>
 
-               <div className="card-panel">
-
+               <div className="card-panel #212121 grey darken-4">
                        <form onSubmit={this.crearProducto}>
 
                             <div className="input-field col s12">

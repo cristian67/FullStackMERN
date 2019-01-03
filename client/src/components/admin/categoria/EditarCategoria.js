@@ -92,7 +92,7 @@ class EditarCategoria extends Component {
                    <h4 className="center-align">Editar Categoria</h4>
                </div>
 
-               <div className="card-panel">
+               <div className="card-panel #212121 grey darken-4">
                        <form onSubmit={this.EditarCategoria}>
                             <div className="input-field col s12">
                                <span htmlFor="nombre">Nombre de la categoria: </span>
@@ -110,7 +110,7 @@ class EditarCategoria extends Component {
                         <h4 className="center-align">Cambiar la imagen de categoria </h4>
                    </div>
 
-                   <div className="card-panel center-align">
+                   <div className="card-panel #212121 grey darken-4 center-align">
                         <img src={`/upload/categoria/${img}`} alt={descripcion} height="150" width="250"></img>
                         <hr></hr>
                             <div className="col s12">

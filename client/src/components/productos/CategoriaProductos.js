@@ -46,7 +46,7 @@ render(){
  const cargando = this.state.cargando;
  let resultado;
  if(cargando){
-      resultado = <div className="sk-circle animated fadeIn delay-0.5s">
+      resultado = <div className="sk-circle animated fadeIn">
                      <div className="sk-circle1 sk-child"></div>
                      <div className="sk-circle2 sk-child"></div>
                      <div className="sk-circle3 sk-child"></div>
@@ -62,18 +62,22 @@ render(){
                    </div>
  }  else {
 
-      resultado =  <CategoriaProductoListar productos_categoria = {this.state.Cate_Productos} /> 
+      resultado =   <React.Fragment>
+                    <div className="container">
+                        <div className="row">
+                    <CategoriaProductoListar productos_categoria = {this.state.Cate_Productos} />  
+                        </div>
+                    </div>
+                    <div className="animated fadeIn delay-0.5s">
+                    <Footer />
+                    </div>
+                    </React.Fragment>
 
  }
     return( 
         <React.Fragment>
             <Navegacion />
-            <div className="container">
-                <div className="row">
                     {resultado}
-                </div>
-            </div>
-            <Footer />
         </React.Fragment>        
 
     );

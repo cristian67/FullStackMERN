@@ -26,22 +26,22 @@ class Home extends Component {
         <React.Fragment>
         
             <Navegacion />
-
             {/* -----Background Celular----*/}
             <div className="hide-on-med-and-up">     
              <Parallax
                     blur={1}
-                    bgImage={('/img/index01.jpg')}
+                    bgImage={('/upload/categoria/DSC_0281-40-772.JPG')}
                     bgImageAlt="the cat"
                     strength={300}
                 >
                 <div className="container">
                     <div className="row">
-                        <div className="col s12 center-align white-text ">
+                        <div className="col s12 center-align white-text">  
+                        <br></br>    
                                 <div className="tituloMania">
-                                    <img src={`/img/logo/logo_lalymania_vf.png`} alt="logo" width="200px" height="100vh"/>
-                                </div>
-                          
+                                    <div className="tituloMovil">Bienvienido</div>
+                                    <img src={`/img/logo/logo_lalymania_vf.png`} className="animated fadeIn delay-1s" alt="logo" width="200px" height="100vh"/>
+                                </div>  
                         <div style={{ height: '200px' }} />
                         </div>
                     </div>
@@ -62,8 +62,8 @@ class Home extends Component {
                     <div className="row">
                         <div className="col s12 center-align white-text ">
                                 <div className="tituloMania">
-                                    <h1 className="titulo">Bienvienido a :</h1>
-                                    <img src={`/img/logo/logo_lalymania_vf.png`} alt="logo" width="300px" height="240px"/>
+                                    <h1 className="titulo">Bienvienido</h1>
+                                    <img src={`/img/logo/logo_lalymania_vf.png`} className="animated fadeIn delay-1s" alt="logo" width="300px" height="240px"/>
                                 </div>
                           
                         <div style={{ height: '200px' }} />
@@ -76,9 +76,9 @@ class Home extends Component {
             {/* -----Video Background solo para Desktop----*/}
             <div className="fullscreen-bg hide-on-med-and-down">     
                 <div className="tituloMania">
-                    <h1 className="titulo">Bienvenido a Lalymania</h1>
+                    <h1 className="titulo">Bienvenido</h1>
                     <hr></hr>
-                    <img src={`/img/logo/logo_lalymania_vf.png`} alt="logo"/>
+                    <img src={`/img/logo/logo_lalymania_vf.png`} className="animated fadeIn delay-1s" alt="logo"/>
                     </div>
                     <div className="video-container">
                         <video className='videoTag fullscreen-bg__video' autoPlay loop muted>
@@ -86,13 +86,22 @@ class Home extends Component {
                         </video>
                     </div>    
             </div>
-            <div className="card-panel indigo darken-4"> 
+            <div className="card-panel #212121 grey darken-4"> 
                 <div className="row">
-                    <div className="col s12 center-align"> 
+                    <div className="col s1 m3 l4 center-align"> 
+                    </div>
+                    <div className="col s5 m3 l2 center-align"> 
                         <button className="btn waves-effect waves-light #0d47a1 blue darken-4 boton" >    
                             <i className="fab fa-facebook-f"></i> Facepage 
                         </button>  
-                    </div>   
+                    </div>    
+                    <div className="col s5 m3 l2 center-align"> 
+                        <button className="btn waves-effect waves-light #0d47a1 blue darken-4 boton" >    
+                            <i class="fab fa-instagram"></i> Instagram 
+                        </button>            
+                    </div> 
+                    <div className="col s1 m3 l4 center-align"> 
+                    </div> 
                 </div>     
             </div>
 
@@ -124,7 +133,7 @@ class Home extends Component {
                                 <div className="card-panel #212121 grey darken-4 hide-on-small-only">
                                     <div className="row">
                                         <div className="col s12 center-align white-text "><h2>Modelo 3D</h2></div>
-                                        <div className="col s12 center-align white-text "><h5>De uno de mis trabajos</h5>
+                                        <div className="col s12 center-align white-text "><h5>Uno de mis trabajos a escala 3D</h5>
                                         <i class="fas fa-surprise"></i> <i class="fas fa-smile-beam"></i> <i class="fas fa-heart"></i>
                                         </div>
                                         <div hidden={!isInView} className="sketchfab-embed-wrapper col s12 center-align">

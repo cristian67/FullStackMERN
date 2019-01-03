@@ -233,7 +233,7 @@ class Router extends Component {
                                            )
                                        }} />
 
-                                        {/*Todos los productos */}
+                                        {/* CONTACTO */}
                                         <Route exact  path="/contacto" render={()=>{
                                              return(
                                                   <React.Fragment>
@@ -276,6 +276,7 @@ class Router extends Component {
                                              );
                                         }} />
 
+
                                          {/* Producto ADMIN Crear */}
                                         <Route exact path="/admin/producto/crear" render={ () => {
                                             return(
@@ -284,6 +285,7 @@ class Router extends Component {
                                                 />
                                             )
                                         }} />
+
 
                                         {/* Producto ADMIN Actualizar */}
                                         <Route exact path="/admin/producto/editar/:productoId" render={ (props) => {
@@ -297,8 +299,6 @@ class Router extends Component {
                                                             producto._id == idProducto
                                              ))
                                                                 
-                                                            
-
                                              return(
                                                   <EditarProducto 
                                                        producto = {filtro[0]}

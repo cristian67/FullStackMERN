@@ -1,0 +1,22 @@
+.card-panel{
+ font-size: 1.5em;
+}
+.input-field {
+ color: aliceblue;
+ font-size: 1em;
+
+}
+
+textarea.materialize-textarea{
+ height: 6rem;
+ color:whitesmoke;
+}
+
+input {
+ color:whitesmoke;
+}
+
+.wsp {
+ font-size: 0.9em;
+}
+

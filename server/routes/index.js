@@ -14,4 +14,7 @@ app.use('/api', require('./upload'));
 //mostrar imagenes
 app.use('/api', require('./imagenes'));
 
+//Enviar mail
+app.use('/api', require('./mail'));
+
 module.exports = app;
